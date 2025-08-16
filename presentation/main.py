@@ -4,6 +4,7 @@ from application.usescases.consultarArtista.consultarartistaservice import Consu
 from domain.interfaces.servicespotify import AbstractSpotifyService
 from fastapi import FastAPI, status, Depends
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from application.dependency import get_consultar_artista_service, get_user_service
 from application.dependency import get_login_service
 from application.exceptions.apiexceptions import ApiException
@@ -16,7 +17,13 @@ from application.usescases.login.loginrequest import LoginRequest
 # Crea una instancia de la aplicación FastAPI
 app = FastAPI()
 
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],  
+    allow_headers=["*"],  
+)
 
 # Define un "path operation" (operación de ruta) para la URL raíz ("/")
 

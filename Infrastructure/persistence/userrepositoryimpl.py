@@ -46,13 +46,13 @@ class UserRepositoryImpl(UserRepository):
             cursor = connection.cursor()
             
             # Preparar la consulta SQL con parámetros
-            query = "SELECT id, name, email, password FROM usuario where email= ?"
+            query = "SELECT  name, email, password FROM usuario where email= ?"
             
             # Ejecutar la consulta con los valores del usuario
             cursor.execute(query, (email))
             row = cursor.fetchone()
                         # Confirmar la transacción
-            user_id, user_name, user_email, hashed_password_from_db = row
+            user_name, user_email, hashed_password_from_db = row
 
 
             return Users(user_name, user_email, hashed_password_from_db)
@@ -62,7 +62,7 @@ class UserRepositoryImpl(UserRepository):
         except Exception as e:
             cursor.rollback()
             print(f"Error al loguear usuario: {str(e)}")
-            return None
+          
             
         finally:
             # Cerrar el cursor y la conexión
